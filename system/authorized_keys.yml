@@ -1,0 +1,19 @@
+---
+# Push authorized keys to remote host
+# See https://docs.ansible.com/ansible/2.5/modules/authorized_key_module.html
+# Remember, this is a template
+- hosts: all
+  
+  tasks:
+  - name: Set authorized key took from file
+    authorized_key:
+      user: charlie
+      state: present
+      key: "{{ lookup('file', '/home/charlie/.ssh/id_rsa.pub') }}"
+
+  - name: Set authorized key took from url
+    authorized_key:
+      user: charlie
+      state: present
+      exclusive: True
+      key: https://github.com/charlie.keys
